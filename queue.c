@@ -1,103 +1,94 @@
 #include<stdio.h>
-int front,rear,q[10],size;
-void enqueue(int item)
+#include<stdlib.h>
+#define MAX 5
+int queuearr[MAX];
+void insert();
+void delete();
+void display();
+int temp,i;
+int front=-1,rear=-1;
+int main()
 {
-	if(rear==size-1)
+	int choice;
+	printf("IMPLEMENTATION OF QUEUE USING ARRAY");
+	while(1)
 	{
-		printf("Queue is full\n");
+		printf("\n1.Enqueue");
+		printf("\n2.Dequeue");
+		printf("\n3.Display");
+		printf("\n4.Exit");
+		printf("\nEnter your choice(1/2/3/4)");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1:printf("\nEnter elements to insert");
+				scanf("%d",&temp);
+				insert(temp);
+			        break;			  		 
+			case 2:delete();	
+			       break;
+			case 3:display();
+			       break;
+			case 4:exit(1);
+			       break;
+			default:printf("\nInvalid input");
+				break;
+		}
 	}
-	else if((rear==-1)&&(front==-1))
+}
+void insert()
+{
+	if(rear==MAX-1)
 	{
-		front=rear=0;
-		q[rear]=item;
+		printf("\nOverflow");
+		return;
+	}
+	if(front==-1 && rear==-1)
+	{
+		front=0;
+		rear=0;
 	}
 	else
 	{
 		rear++;
-		q[rear]=item;
+		
 	}
+	queuearr[rear]=temp;
+	printf("value inserted");
 }
-	
-void dequeue()
+void delete()
 {
-	if(front==-1)
+	int item;
+	if(front==-1 || front>rear)
 	{
-		printf("Queue is empty\n");
-	}
-	else if(front==rear)
-	{
-		printf("The Deleted item :%d\n",q[front]);
-		front=rear=-1;
+		printf("No element to delete");
+		return;
 	}
 	else
 	{
-		printf("the deleted item:%d\n",q[front]);
-		front++;
+		item=queuearr[front];
+		if(front==rear)
+		{
+			front=rear=-1;
+		}
+		else
+		{
+			front=front+1;
+		}
+		
+		printf("deleted item is %d",item);
 	}
 }
 void display()
 {
-	int i,j;
-	if(front>=0)
+	int i;
+	if(rear==-1)
+	printf("\nEmpty queue");
+	else
 	{
-		printf("---Queue Elements---\n");
 		for(i=front;i<=rear;i++)
 		{
-			printf("%d\n",q[i]);
+			printf("%d\n",queuearr[i]);
 		}
 	}
-	else
-	{
-		printf("Queue is empty\n");
-	}
 }
-int main()
-{
-	int n;
-	int item;
-	front=-1;
-	rear=-1;
-	printf("Enter the size of Queue(max 10)\n");
-	scanf("%d",&size);
-	if(size<=10 && size>1)
-	{
-		while(1)
-		{
-			printf("----BASIC QUEUE OPERATION---- \n0)exit\n 1)enqueue\n 2)Dequeue \n3)Display\n\n Enter Choice!!!\n");
-			scanf("%d",&n);
-			if(n==0)
-			{
-				printf("BYE BYE !!!\n");
-				break;
-			}
-			else if(n==1)
-			{
-				printf("Enter item\n");
-				scanf("%d",&item);
-				enqueue(item);
-			}
-			else if(n==2)
-			{
-				dequeue();
-			}
-			else if(n==3)
-			{
-				display();
-			}
-			else
-			{
-				printf("Wrong Input\n\n");
-			}
-		}
-	}
-	else
-	{
-		printf("Size Issue!!!");
-	}
-
-			
-	return 0;
-}
-	
-	
-
